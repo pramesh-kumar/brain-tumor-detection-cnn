@@ -1,0 +1,6 @@
+data/
+models/*.h5
+*.pyc
+__pycache__/
+.streamlit/
+*.log
