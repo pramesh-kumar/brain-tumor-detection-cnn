@@ -55,17 +55,41 @@ def main():
     st.title("🧠 Brain Tumor Detection System")
     st.markdown("Upload an MRI scan to detect brain tumors using Deep Learning")
     
-    # Sidebar
-    st.sidebar.header("About")
-    st.sidebar.info(
-        "This system uses Convolutional Neural Networks (CNN) "
-        "combined with Digital Image Processing techniques to "
-        "classify brain MRI scans into 4 categories:\n\n"
-        "• Glioma\n"
-        "• Meningioma\n" 
-        "• No Tumor\n"
-        "• Pituitary Tumor"
-    )
+    # About section on top
+    with st.expander("📋 About This Project", expanded=False):
+        col1, col2 = st.columns([2, 1])
+        
+        with col1:
+            st.markdown("""
+            ### 🎯 What This System Does
+            This AI-powered system analyzes brain MRI scans and classifies them into **4 categories**:
+            - **🔴 Glioma** - Serious brain tumor in glial cells
+            - **🟡 Meningioma** - Tumors in protective brain membranes
+            - **🟢 No Tumor** - Healthy brain scans
+            - **🟠 Pituitary Tumor** - Growths in pituitary gland
+            
+            ### 🧠 How It Works
+            1. **Digital Image Processing**: CLAHE enhancement, noise reduction, normalization
+            2. **CNN Architecture**: 4 convolutional blocks with 32→64→128→256 filters
+            3. **Classification**: Softmax output with confidence scores
+            """)
+        
+        with col2:
+            st.markdown("""
+            ### 🛠️ Technology Stack
+            - **TensorFlow 2.19**
+            - **OpenCV 4.11** 
+            - **Streamlit 1.49**
+            - **Scikit-learn**
+            
+            ### 📊 Performance
+            - **Overall Accuracy**: 89.7%
+            - **Training Images**: 5,712
+            - **No Tumor**: 95.1%
+            - **Pituitary**: 92.3%
+            """)
+    
+    st.markdown("---")
     
     # Load model
     model = load_model()
@@ -94,7 +118,7 @@ def main():
             
             # Preprocess image
             processed_img, display_img = preprocess_uploaded_image(uploaded_file)
-            st.image(display_img, caption="After DIP Processing", use_column_width=True, cmap='gray')
+            st.image(display_img, caption="After DIP Processing", use_column_width=True)
         
         # Make prediction
         if st.button("🔍 Analyze Image", type="primary"):
